@@ -25,11 +25,11 @@ class ReportsController extends Controller
 
     public function stocks()
     {
-        $products = Product::select('products.*', DB::raw('SUM(order_details.product_quantity) as total_sold'))
+        $products = Product::select('products.id', 'products.name', 'products.quantity', 'products.price', DB::raw('SUM(order_details.product_quantity) as total_sold'))
             ->leftJoin('order_details', 'products.id', '=', 'order_details.product_id')
             ->leftJoin('orders', 'order_details.order_id', '=', 'orders.id')
             ->where('orders.status', '5')
-            ->groupBy('order_details.id')
+            ->groupBy('products.id', 'products.name', 'products.quantity', 'products.price')
             ->get();
 
         return view('admin.reports.stocks', ["products" => $products]);
