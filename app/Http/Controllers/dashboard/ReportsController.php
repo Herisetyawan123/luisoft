@@ -29,7 +29,7 @@ class ReportsController extends Controller
             ->leftJoin('order_details', 'products.id', '=', 'order_details.product_id')
             ->leftJoin('orders', 'order_details.order_id', '=', 'orders.id')
             ->where('orders.status', '5')
-            ->groupBy('products.id')
+            ->groupBy('products.id', 'products.name')
             ->get();
 
         return view('admin.reports.stocks', ["products" => $products]);
@@ -57,7 +57,7 @@ class ReportsController extends Controller
             ->leftJoin('order_details', 'products.id', '=', 'order_details.product_id')
             ->leftJoin('orders', 'order_details.order_id', '=', 'orders.id')
             ->where('orders.status', '5')
-            ->groupBy('products.id')
+            ->groupBy('products.id', 'products.name')
             ->get();
 
         $pdf = PDF::loadView('admin.reports.pdf.stock-pdf', compact('products'));
