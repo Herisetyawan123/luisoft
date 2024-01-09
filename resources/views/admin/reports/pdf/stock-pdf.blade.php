@@ -56,6 +56,7 @@
                 <th class="text-center">No</th>
                 <th>Nama Product</th>
                 <th>Harga</th>
+                <th>Stok awal</th>
                 <th>Stok saat ini</th>
                 <th>Stok terjual</th>
             </tr>
@@ -67,6 +68,7 @@
                     <td>{{ $no++ }}</td>
                     <td>{{ $product->name }}</td>
                     <td>@rupiah($product->price)</td>
+                    <td>{{$product->quantity + $product->total_sold}}</td>
                     <td>{{$product->quantity}}</td>
                     <td>{{$product->total_sold}}</td>
                 </tr>
@@ -75,9 +77,10 @@
         </tbody>
         <tfoot>
             <tr class="border">
-              <td class="font-weight-bold" colspan="3">Total Stock</td>
-              <td class="font-weight-bold">{{ $products->sum('quantity') }}</td>
-              <td class="font-weight-bold">{{ $products->sum('total_sold') }}</td>
+                <td class="font-weight-bold" colspan="3">Total Stock</td>
+                <td class="font-weight-bold">{{ $products->sum('quantity') + $products->sum('total_sold') }}</td>
+                <td class="font-weight-bold">{{ $products->sum('quantity') }}</td>
+                <td class="font-weight-bold">{{ $products->sum('total_sold') }}</td>
             </tr>
           </tfoot>
     </table>
